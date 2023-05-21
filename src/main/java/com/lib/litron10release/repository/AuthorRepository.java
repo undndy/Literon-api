@@ -11,10 +11,12 @@ import java.util.List;
 @Repository
 public interface AuthorRepository extends JpaRepository<Author, Long> {
 
+    List<Author> findByLastNameContainingAndPoemsNamePoemContaining(String authorName, String poemName);
+
+    List<Author> findByLastNameContaining(String authorName);
+
+    List<Author> findByPoemsNamePoemContaining(String authorName);
+
     List<Author> findByLastNameContainingIgnoreCaseOrderByLastName(String lastname);
-
-    @Query("SELECT a FROM Author a WHERE a.patronymic LIKE CONCAT('%', :query, '%')")
-    List<Poem> searchAuthor(String query);
-
 
 }

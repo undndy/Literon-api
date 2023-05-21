@@ -1,7 +1,8 @@
-package com.example.demo.validations;
+package com.lib.litron10release.validations;
 
-import com.example.demo.annotations.PasswordMatches;
-import com.example.demo.payload.request.SignupRequest;
+
+import com.lib.litron10release.annotations.PasswordMatches;
+import com.lib.litron10release.payload.request.SignupRequest;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

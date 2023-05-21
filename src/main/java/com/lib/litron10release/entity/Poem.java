@@ -1,6 +1,8 @@
 package com.lib.litron10release.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -24,7 +26,7 @@ public class Poem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JsonBackReference
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(nullable = false)
     private Author author;
@@ -34,6 +36,7 @@ public class Poem {
     @Column(nullable = false)
     private String text;
 
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "poem")
     private Set<Task> tasks;
 

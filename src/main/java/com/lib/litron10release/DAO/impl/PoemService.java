@@ -30,7 +30,7 @@ public class PoemService implements PoemDAO {
     }
 
     @Override
-    public Poem get(long id) {
+    public Poem get(Long id) {
         Optional<Poem> bookmark = poemRepository.findById(id);
         return bookmark.orElse(null);
     }

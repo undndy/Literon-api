@@ -11,7 +11,7 @@ public interface GeneralDAO<T> {
     List<T> search(String searchString);
 
     // получение объекта по id
-    T get(long id);
+    T get(Long id);
 
     // save - обновляет или добавляет объект (один метод на 2 действия)
     T save(T obj);

@@ -21,16 +21,15 @@ import java.util.Set;
 @Getter
 
 @NoArgsConstructor
-public class User implements UserDetails {
+public class UserLiter implements UserDetails {
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "first_name", nullable = false)
+    @Column(nullable = false)
     private String firstName;
-
-    @Column(name = "last_name", nullable = false)
+    @Column(nullable = false)
     private String lastName;
 
     @Column(length = 3000)
@@ -48,10 +47,10 @@ public class User implements UserDetails {
     private List<Task> tasks;
 
 
-    public User(Long id,
-                String email,
-                String password,
-                Collection<? extends GrantedAuthority> authorities) {
+    public UserLiter(Long id,
+                     String email,
+                     String password,
+                     Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.email = email;
         this.password = password;
@@ -67,12 +66,12 @@ public class User implements UserDetails {
 
     @Override
     public String getPassword(){
-        return password;
+        return this.password;
     }
 
     @Override
     public String getUsername() {
-        return firstName;
+        return this.email;
     }
 
     @Override

@@ -1,6 +1,7 @@
-package com.example.demo.validations;
+package com.lib.litron10release.validations;
 
-import com.example.demo.annotations.ValidEmail;
+
+import com.lib.litron10release.annotations.ValidEmail;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

@@ -1,4 +1,4 @@
-package com.example.demo.validations;
+package com.lib.litron10release.validations;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

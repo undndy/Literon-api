@@ -1,6 +1,6 @@
 package com.lib.litron10release.DAO;
 
-import com.lib.litron10release.entity.Poem;
+import com.lib.litron10release.entity.Chronograph;
 
-public interface PoemDAO extends GeneralDAO<Poem>{
+public interface ChronoDAO extends GeneralDAO<Chronograph>{
 }

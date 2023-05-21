@@ -15,11 +15,11 @@ import java.util.Optional;
 
 @Service
 public class TaskService implements TaskDAO {
-    @Autowired
-    private PoemRepository poemRepository;
 
     @Autowired
     private TaskRepository taskRepository;
+    @Autowired
+    private PoemRepository poemRepository;
 
     @Override
     public List<Task> getAll() {
@@ -32,14 +32,21 @@ public class TaskService implements TaskDAO {
     }
 
     @Override
-    public Task get(long id) {
+    public Task get(Long id) {
         return null;
     }
 
     @Override
     public Task save(Task task) {
+
         return taskRepository.save(task);
     }
+
+//    public Task saveTask(Task task, Long poemId) {
+//        Optional<Poem> poem = poemRepository.findById(poemId); // Получить объект Poem из репозитория
+//        task.setPoem(poem); // Установить значение поля poem
+//        return taskRepository.save(task);
+//    }
 
     @Override
     public void delete(Task task) {
@@ -56,9 +63,7 @@ public class TaskService implements TaskDAO {
         return null;
     }
 
-//    public Task createTask(Long poemId, Task task) {
-//        Poem poem =  poemRepository.findById(poemId);
-//        task.setPoem(poem);
-//        return taskRepository.save(task);
-//    }
+    public List<Task> getTaskForPoem(Poem poem){
+        return taskRepository.findTaskByPoem(poem);
+    }
 }

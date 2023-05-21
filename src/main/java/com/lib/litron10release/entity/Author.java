@@ -7,6 +7,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 @Setter
@@ -37,13 +38,11 @@ public class Author {
     @Column(nullable = false, columnDefinition = "text")
     private String description;
 
-    @Column(columnDefinition = "text")
-    private String Chronogrof;
-
-//    @Column(name = "image_url")
-//    private FileItem photo;
-
     @JsonManagedReference
+    @Column(columnDefinition = "text")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "author")
+    private List<Chronograph> chronograph;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "author")
     private Set<Poem> poems;
 

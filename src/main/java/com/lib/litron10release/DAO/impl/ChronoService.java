@@ -1,56 +1,57 @@
 package com.lib.litron10release.DAO.impl;
 
+import com.lib.litron10release.DAO.ChronoDAO;
 import com.lib.litron10release.DAO.PoemDAO;
 import com.lib.litron10release.entity.Author;
+import com.lib.litron10release.entity.Chronograph;
 import com.lib.litron10release.entity.Poem;
-import com.lib.litron10release.repository.AuthorRepository;
+import com.lib.litron10release.repository.ChronoRepository;
 import com.lib.litron10release.repository.PoemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class PoemService implements PoemDAO {
+public class ChronoService implements ChronoDAO {
 
     @Autowired
-    private PoemRepository poemRepository;
+    private ChronoRepository chronoRepository;
 
     @Override
-    public List<Poem> getAll() {
-        return poemRepository.findAll();
+    public List<Chronograph> getAll() {
+        return chronoRepository.findAll();
     }
 
     @Override
-    public List<Poem> search(String searchString) {
-        return poemRepository.searchPoem(searchString);
+    public List<Chronograph> search(String searchString) {
+        return null;
     }
 
     @Override
-    public Poem get(long id) {
-        Optional<Poem> bookmark = poemRepository.findById(id);
+    public Chronograph get(Long id) {
+        Optional<Chronograph> bookmark = chronoRepository.findById(id);
         return bookmark.orElse(null);
     }
 
     @Override
-    public Poem save(Poem poem) {
-        return poemRepository.save(poem);
+    public Chronograph save(Chronograph chronograph) {
+        return chronoRepository.save(chronograph);
     }
 
     @Override
-    public void delete(Poem poem) {
-        poemRepository.delete(poem);
+    public void delete(Chronograph chronograph) {
+        chronoRepository.delete(chronograph);
     }
 
     @Override
-    public List<Poem> getAll(Sort sort) {
-        return poemRepository.findAll(sort);
+    public List<Chronograph> getAll(Sort sort) {
+        return chronoRepository.findAll(sort);
     }
 
-    public List<Poem> getPoemsByAuthor(Author authorId) {
-        return poemRepository.findPoemsByAuthor(authorId);
+    public List<Chronograph> getChronoByAuthor(Author author){
+        return chronoRepository.findChronographByAuthor(author);
     }
 }
