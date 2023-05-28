@@ -3,6 +3,7 @@ package com.lib.litron10release.DAO.impl;
 import com.lib.litron10release.DAO.TaskDAO;
 import com.lib.litron10release.entity.Poem;
 import com.lib.litron10release.entity.Task;
+import com.lib.litron10release.entity.UserLiter;
 import com.lib.litron10release.repository.PoemRepository;
 import com.lib.litron10release.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +19,6 @@ public class TaskService implements TaskDAO {
 
     @Autowired
     private TaskRepository taskRepository;
-    @Autowired
-    private PoemRepository poemRepository;
 
     @Override
     public List<Task> getAll() {
@@ -63,7 +62,11 @@ public class TaskService implements TaskDAO {
         return null;
     }
 
-    public List<Task> getTaskForPoem(Poem poem){
-        return taskRepository.findTaskByPoem(poem);
+    public List<Task> getTaskForPoem(Poem poem, UserLiter user){
+        return taskRepository.findTaskByPoemAndUserLiter(poem, user);
+    }
+
+    public List<Task> getTaskForUser(UserLiter user){
+        return taskRepository.findTaskByUserLiter(user);
     }
 }

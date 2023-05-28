@@ -30,13 +30,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.cors().and().csrf().disable()
+        http.cors().and().csrf().disable().exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntriPoint).and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
                 .antMatchers(SecurityConstants.SIGN_UP_URLS).permitAll()
-                .antMatchers("api/authors").permitAll()
+                .antMatchers("/api/auth/signin").permitAll()
+                .antMatchers("/api/authors/**").permitAll()
+                .antMatchers("/api/poems/**").permitAll()
+                .antMatchers("/api/tasks/**").permitAll()
+                .antMatchers("/api/chrono/**").permitAll()
                 .anyRequest().authenticated();
 
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);

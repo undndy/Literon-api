@@ -24,6 +24,7 @@ public class JWWTTokenProvider {
 
         Map<String, Object> claimsMap = new HashMap<>();
         claimsMap.put("id", userId);
+        claimsMap.put("email", userLiter.getEmail());
         claimsMap.put("firstName", userLiter.getFirstName());
         claimsMap.put("lastName", userLiter.getLastName());
 
@@ -49,6 +50,21 @@ public class JWWTTokenProvider {
                 IllegalArgumentException exception){
             LOG.error(exception.getMessage());
             return false;
+        }
+    }
+
+    public boolean isTokenExpired(String token) {
+        try {
+            Claims claims = Jwts.parser()
+                    .setSigningKey(SecurityConstants.SECRET)
+                    .parseClaimsJws(token)
+                    .getBody();
+
+            Date expirationDate = claims.getExpiration();
+            return expirationDate.before(new Date());
+        } catch (Exception e) {
+            LOG.error("Error occurred while validating token: {}", e.getMessage());
+            return true; // Assume token is expired if an exception occurs
         }
     }
 

@@ -67,6 +67,15 @@ public class AuthController {
 
         userService.createUser(signupRequest);
         LOG.info("User registered successfully!");
-        return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+        // Authenticate the user
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(signupRequest.getEmail(), signupRequest.getPassword())
+        );
+
+        // Generate JWT token
+        String jwt = SecurityConstants.TOKEN_PREFIX + jwtTokenProvider.generateToken(authentication);
+
+        // Return the token to the client
+        return ResponseEntity.ok(new JWTTokenSuccessResponse(true, jwt));
     }
 }

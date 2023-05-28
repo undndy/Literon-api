@@ -1,9 +1,11 @@
 package com.lib.litron10release.controller;
 
 
+import com.lib.litron10release.DAO.impl.AuthorService;
 import com.lib.litron10release.DAO.impl.ChronoService;
 import com.lib.litron10release.entity.Author;
 import com.lib.litron10release.entity.Chronograph;
+import com.lib.litron10release.entity.Poem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +23,9 @@ public class ChronoController {
     @Autowired
     private ChronoService chronoService;
 
+    @Autowired
+    private AuthorService authorService;
+
     @GetMapping("/{id}")
     public ResponseEntity<Chronograph> getChronoById(@PathVariable Long id) {
         Chronograph chronograph = chronoService.get(id);
@@ -28,8 +33,9 @@ public class ChronoController {
     }
 
     @GetMapping("/{authorId}/chronograph")
-    public ResponseEntity<List<Chronograph>> getChronoByAuthor(@PathVariable("authorId") Author authorId) {
-        List<Chronograph> chronographList =chronoService.getChronoByAuthor(authorId);
+    public ResponseEntity<List<Chronograph>> getChronoByAuthor(@PathVariable("authorId") Long authorId) {
+        Author author = authorService.get(authorId);
+        List<Chronograph> chronographList =chronoService.getChronoByAuthor(author);
         return new ResponseEntity<>(chronographList, HttpStatus.OK);
     }
 
