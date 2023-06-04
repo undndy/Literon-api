@@ -14,7 +14,6 @@ import javax.validation.Valid;
 import java.util.List;
 
 
-@CrossOrigin(origins = "http://localhost:4200")
 @Controller
 @RequestMapping("api/poems")
 public class PoemController {

@@ -6,20 +6,16 @@ import com.lib.litron10release.DAO.impl.UserService;
 import com.lib.litron10release.entity.Poem;
 import com.lib.litron10release.entity.Task;
 import com.lib.litron10release.entity.UserLiter;
-import com.lib.litron10release.repository.PoemRepository;
-import com.lib.litron10release.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
 
-@CrossOrigin(origins = "http://localhost:4200")
 @Controller
 @RequestMapping("api/tasks")
 public class TaskController {
