@@ -2,12 +2,14 @@ package com.lib.litron10release.payload.request;
 
 import com.lib.litron10release.annotations.PasswordMatches;
 import com.lib.litron10release.annotations.ValidEmail;
+//import com.lib.litron10release.entity.enums.ERole;
 import lombok.Data;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.util.Set;
 
 @Data
 @PasswordMatches
@@ -31,5 +33,6 @@ public class SignupRequest {
     private String password;
     private String confirmPassword;
 
+    private Long role;
 
 }

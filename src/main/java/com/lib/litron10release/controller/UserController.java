@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 @RequestMapping("api/user")
@@ -26,6 +27,12 @@ public class UserController {
     @GetMapping("/")
     public ResponseEntity<UserLiter> getCurrentUser(Principal principal) {
         UserLiter user = userService.getCurrentUser(principal);
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<UserLiter>> getSearchedUser(String query) {
+        List<UserLiter> user = userService.searchUser(query);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 

@@ -1,6 +1,6 @@
 package com.lib.litron10release.entity;
 
-import com.lib.litron10release.entity.enums.ERole;
+//import com.lib.litron10release.entity.enums.ERole;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -39,10 +39,11 @@ public class UserLiter implements UserDetails {
     @Column(unique = true)
     private String email;
 
-    @ElementCollection(targetClass = ERole.class)
-    @CollectionTable(name = "user_role",
-                    joinColumns = @JoinColumn(name = "user_id"))
-    private Set<ERole> role = new HashSet<>();
+//    @ElementCollection(targetClass = ERole.class)
+//    @CollectionTable(name = "user_role",
+//                    joinColumns = @JoinColumn(name = "user_id"))
+    @Column
+    private Long role;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "poem")
     private List<Task> tasks;
@@ -51,11 +52,11 @@ public class UserLiter implements UserDetails {
     public UserLiter(Long id,
                      String email,
                      String password,
-                     Collection<? extends GrantedAuthority> authorities) {
+                     Long role) {
         this.id = id;
         this.email = email;
         this.password = password;
-        this.authorities = authorities;
+        this.role = role;
     }
 
     /**

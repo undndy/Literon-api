@@ -29,15 +29,15 @@ public class CustomUserDetailsService implements UserDetailsService {
 
 
     public static UserLiter build(UserLiter userLiter) {
-        List<GrantedAuthority> authorities = userLiter.getRole().stream()
-                .map(role -> new SimpleGrantedAuthority(role.name()))
-                .collect(Collectors.toList());
+//        List<GrantedAuthority> authorities = userLiter.getRole().stream()
+//                .map(role -> new SimpleGrantedAuthority(role.name()))
+//                .collect(Collectors.toList());
 
         return new UserLiter(
                 userLiter.getId(),
                 userLiter.getEmail(),
                 userLiter.getPassword(),
-                authorities);
+                userLiter.getRole());
     }
 
     @Override

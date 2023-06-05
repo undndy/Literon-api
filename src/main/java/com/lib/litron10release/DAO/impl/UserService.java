@@ -2,7 +2,7 @@ package com.lib.litron10release.DAO.impl;
 
 import com.lib.litron10release.dto.UserDTO;
 import com.lib.litron10release.entity.UserLiter;
-import com.lib.litron10release.entity.enums.ERole;
+//import com.lib.litron10release.entity.enums.ERole;
 //import com.lib.litron10release.exeptions.UserExistException;
 //import com.lib.litron10release.payload.request.SignupRequest;
 import com.lib.litron10release.exception.UserExistException;
@@ -16,6 +16,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
+import java.util.List;
+import java.util.Set;
 
 @Service
 @AllArgsConstructor
@@ -31,7 +33,7 @@ public class UserService {
         userLiter.setLastName(userIn.getLastname());
         userLiter.setFirstName(userIn.getFirstname());
         userLiter.setPassword(passwordEncoder.encode(userIn.getPassword()));
-        userLiter.getRole().add(ERole.ROLE_USER);
+        userLiter.setRole(userIn.getRole());
         try {
             return userRepository.save(userLiter);
         }catch (Exception e){
@@ -60,6 +62,10 @@ public class UserService {
 
     public UserLiter getUserById(Long id) {
         return userRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+    }
+
+    public List<UserLiter> searchUser(String name){
+        return userRepository.findByLastNameContainingIgnoreCaseOrFirstNameContainingIgnoreCase(name, name);
     }
 
 }
