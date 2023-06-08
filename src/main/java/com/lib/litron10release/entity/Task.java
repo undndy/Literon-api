@@ -23,7 +23,8 @@ public class Task {
 
     @ManyToOne
     @JoinColumn(name = "poem_id")
-    @JsonBackReference // Используйте эту аннотацию для предотвращения бесконечной рекурсии при сериализации
+//    @JsonBackReference // Используйте эту аннотацию для предотвращения бесконечной рекурсии при сериализации
+//    @JsonIgnore
     private Poem poem;
 
     @Column
