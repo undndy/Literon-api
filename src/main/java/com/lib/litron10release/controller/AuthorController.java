@@ -7,9 +7,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -36,8 +38,13 @@ public class AuthorController {
             @RequestParam(name = "poemName", required = false) String poemName) {return authorService.searchAuthorsAndPoems(authorName,poemName);}
 
     @PostMapping("/create")
-    public Author createAuthor(@Valid @RequestBody Author author){
-        return authorService.save(author);
+    public Author createAuthor(@RequestParam("image") MultipartFile image, @Valid @RequestBody Author author) throws IOException {
+        return authorService.save(author, image);
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Author> updateImage(@RequestParam("image") MultipartFile image, @PathVariable("id") Long id) throws IOException {
+        return ResponseEntity.ok(authorService.updateImageByid(image, id));
     }
 
 //    @DeleteMapping("/delete")

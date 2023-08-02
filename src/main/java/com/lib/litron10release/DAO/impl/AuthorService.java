@@ -1,15 +1,16 @@
 package com.lib.litron10release.DAO.impl;
 
 import com.lib.litron10release.DAO.AuthorDAO;
-import com.lib.litron10release.dto.AuthorDTO;
 import com.lib.litron10release.entity.Author;
+import com.lib.litron10release.entity.FileItem;
 import com.lib.litron10release.repository.AuthorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,8 +37,38 @@ public class AuthorService implements AuthorDAO {
     }
 
     @Override
-    public Author save(Author author) {
+    public Author save(Author obj) {
+        return null;
+    }
+
+    @Override
+    public Author save(Author author, MultipartFile image) throws IOException {
+        FileItem file;
+        if (image.getSize() != 0){
+            file = toFileEntity(image);
+            author.setImage(file);
+        }
         return authorRepository.save(author);
+    }
+
+    private FileItem toFileEntity(MultipartFile image) throws IOException {
+        FileItem fileItem = new FileItem();
+        fileItem.setName(image.getName());
+        fileItem.setContentType(image.getContentType());
+        fileItem.setImageBytes(image.getBytes());
+        fileItem.setOriginalFileName(image.getOriginalFilename());
+        return fileItem;
+    }
+
+    private FileItem toFileEntity(MultipartFile image, Long id) throws IOException {
+        FileItem fileItem = new FileItem();
+        Author author = authorRepository.findById(id).orElse(null);
+        fileItem.setName(image.getName());
+        fileItem.setContentType(image.getContentType());
+        fileItem.setImageBytes(image.getBytes());
+        fileItem.setOriginalFileName(image.getOriginalFilename());
+        fileItem.setAuthor(author);
+        return fileItem;
     }
 
     @Override
@@ -69,5 +100,17 @@ public class AuthorService implements AuthorDAO {
             // If no search parameters are provided, return all authors with their poems
             return authorRepository.findAll();
         }
+    }
+
+    public Author updateImageByid(MultipartFile image, Long authorId) throws IOException {
+        FileItem file;
+        Author author = authorRepository.findById(authorId).orElse(null);
+        if (image.getSize() != 0){
+            file = toFileEntity(image, authorId);
+            assert author != null;
+            author.setImage(file);
+        }
+        assert author != null;
+        return authorRepository.save(author);
     }
 }

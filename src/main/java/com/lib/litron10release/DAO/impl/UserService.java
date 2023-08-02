@@ -2,9 +2,6 @@ package com.lib.litron10release.DAO.impl;
 
 import com.lib.litron10release.dto.UserDTO;
 import com.lib.litron10release.entity.UserLiter;
-//import com.lib.litron10release.entity.enums.ERole;
-//import com.lib.litron10release.exeptions.UserExistException;
-//import com.lib.litron10release.payload.request.SignupRequest;
 import com.lib.litron10release.exception.UserExistException;
 import com.lib.litron10release.payload.request.SignupRequest;
 import com.lib.litron10release.repository.UserRepository;
@@ -14,10 +11,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.security.Principal;
 import java.util.List;
-import java.util.Set;
 
 @Service
 @AllArgsConstructor
@@ -60,6 +57,7 @@ public class UserService {
 
     }
 
+    @Transactional
     public UserLiter getUserById(Long id) {
         return userRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }

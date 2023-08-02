@@ -1,9 +1,17 @@
 package com.lib.litron10release.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 
+@Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class FileItem {
 
     @Id
@@ -14,16 +22,17 @@ public class FileItem {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "location")
-    private String location;
+    @Column(name = "originalFileName")
+    private String originalFileName;
 
-    @Column(columnDefinition = "LONGBLOB")
+    @Column(name = "contentType")
+    private String contentType;
+
+    @Lob
     private byte[] imageBytes;
 
     @JsonIgnore
-    private Long userId;
-
-    @JsonIgnore
-    private Long authorId;
+    @OneToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+    private Author author;
 
 }

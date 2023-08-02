@@ -43,8 +43,11 @@ public class Author {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "author")
     private List<Chronograph> chronograph;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "author")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "author")
     private Set<Poem> poems;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "author")
+    private FileItem image;
 
     @JsonFormat(pattern = "yyyy-mm-dd")
     @Column(updatable = false)
