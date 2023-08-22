@@ -1,7 +1,7 @@
 package com.lib.litron10release.DAO.impl;
 
-import com.lib.litron10release.entity.FileItem;
-import com.lib.litron10release.repository.FileRepository;
+import com.lib.litron10release.entity.Book;
+import com.lib.litron10release.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,24 +13,24 @@ import java.util.List;
 @Service
 public class BookService {
     @Autowired
-    private FileRepository fileRepository;
+    private BookRepository bookRepository;
 
-    private FileItem toFileEntity(MultipartFile image) throws IOException {
-        FileItem fileItem = new FileItem();
-        fileItem.setName(image.getName());
-        fileItem.setContentType(image.getContentType());
-        fileItem.setImageBytes(image.getBytes());
-        fileItem.setOriginalFileName(image.getOriginalFilename());
-        return fileItem;
+    private Book toFileEntity(MultipartFile image) throws IOException {
+        Book book = new Book();
+        book.setName(image.getName());
+        book.setContentType(image.getContentType());
+        book.setImageBytes(image.getBytes());
+        book.setOriginalFileName(image.getOriginalFilename());
+        return book;
     }
 
-    public FileItem save(MultipartFile state) throws IOException {
-        FileItem file = toFileEntity(state);
-        return fileRepository.save(file);
+    public Book save(MultipartFile state) throws IOException {
+        Book book = toFileEntity(state);
+        return bookRepository.save(book);
     }
 
     @Transactional
-    public List<FileItem> getAllBook(){
-        return fileRepository.findAllByName("book");
+    public List<Book> getAllBook(){
+        return bookRepository.findAllByName("book");
     }
 }
