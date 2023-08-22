@@ -48,6 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/chrono/**").permitAll()
                 .antMatchers("/api/user/**").permitAll()
                 .antMatchers("/api/image/**").permitAll()
+                .antMatchers("/api/content/**").permitAll()
                 .antMatchers("/").permitAll()
 //                .antMatchers("/static/**").permitAll()
                 .anyRequest().authenticated();
