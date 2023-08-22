@@ -1,4 +1,16 @@
+#
+# Build stage
+#
 FROM openjdk:8-jdk
+
+COPY . .
+RUN mvn clean package -Pprod -DskipTests
+
+#
+# Package stage
+#
+FROM openjdk:11-jdk-slim
+COPY --from=build /target/Litron1-0Release-0.0.1-SNAPSHOT.jar demo.jar
+# ENV PORT=8080
 EXPOSE 8080
-ADD target/Litron1-0Release-0.0.1-SNAPSHOT.jar app.jar
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java","-jar","demo.jar"]
